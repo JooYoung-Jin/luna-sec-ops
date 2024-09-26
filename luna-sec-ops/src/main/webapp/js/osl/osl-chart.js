@@ -63,7 +63,7 @@ var OSLCoreChartSetting = function () {
 						zoom: false,
 						zoomin: '<i class="fa fa-plus-circle osl-icon-transform__scale--150"></i>',
 						zoomout: '<i class="fa fa-minus-circle osl-icon-transform__scale--150"></i>',
-						pan: '<i class="fa fa-expand-arrows-alt osl-icon-transform__scale--150"></i>',
+						pan: '<i class="fas fa-arrows-alt osl-icon-transform__scale--150"></i>',
 						reset: '<i class="fa flaticon2-refresh-1"></i>',
 						customIcons: [
 							
@@ -323,7 +323,12 @@ var OSLCoreChartSetting = function () {
 							if(!chartArrays.hasOwnProperty(config.data.param.key["key"+idx])){
 								chartArrays[config.data.param.key["key"+idx]]=[]
 							}
-							chartArrays[config.data.param.key["key"+idx]].push( value[config.data.param.key["key"+idx]] );
+							
+							if($.osl.isNull(value[config.data.param.key["key"+idx]])){
+								chartArrays[config.data.param.key["key"+idx]].push(null);
+							}else{
+								chartArrays[config.data.param.key["key"+idx]].push( value[config.data.param.key["key"+idx]] );
+							}
 						}
 						
 						
@@ -451,7 +456,13 @@ var OSLCoreChartSetting = function () {
 							if(!chartArrays.hasOwnProperty(config.data.param.key["key"+idx])){
 								chartArrays[config.data.param.key["key"+idx]]=[]
 							}
-							chartArrays[config.data.param.key["key"+idx]].push( value[config.data.param.key["key"+idx]] );
+							
+							if($.osl.isNull(value[config.data.param.key["key"+idx]])){
+								chartArrays[config.data.param.key["key"+idx]].push(null);
+							}else{
+								chartArrays[config.data.param.key["key"+idx]].push( value[config.data.param.key["key"+idx]] );
+							}
+							
 						}
 						
 						
@@ -459,7 +470,9 @@ var OSLCoreChartSetting = function () {
 							if(!chartArrays.hasOwnProperty(config.data.param.xKey)){
 								chartArrays[config.data.param.xKey]=[];
 							}
+							
 							chartArrays[config.data.param.xKey].push( value[config.data.param.xKey] );
+							
 						}
 						
 						if(!$.osl.isNull(config.data.param.yKey)){
@@ -539,7 +552,12 @@ var OSLCoreChartSetting = function () {
 							if(!chartArrays.hasOwnProperty(config.data.param.key["key"+idx])){
 								chartArrays[config.data.param.key["key"+idx]]=[]
 							}
-							chartArrays[config.data.param.key["key"+idx]].push( value[config.data.param.key["key"+idx]] );
+							
+							if($.osl.isNull(value[config.data.param.key["key"+idx]])){
+								chartArrays[config.data.param.key["key"+idx]].push(null);
+							}else{
+								chartArrays[config.data.param.key["key"+idx]].push( value[config.data.param.key["key"+idx]] );
+							}
 						}
 						
 						if(!$.osl.isNull(config.data.param.xKey)){

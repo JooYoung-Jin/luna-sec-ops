@@ -9,64 +9,65 @@
 
 
 
-<div class="kt-portlet kt-portlet--mobile kt-margin-b-0 osl-portlet__body-style--none">
-	<div class="kt-portlet__head osl-swiper-container">
-		<div class="swiper-container w-100 overflow-hidden">
-			
-			<ul class="nav nav-pills nav-pills-sm osl-flex-flow--row kt-margin-b-0 osl-position-nav swiper-wrapper osl-width__fit-content" role="tablist">
-				<li class="nav-item swiper-slide">
-					<a class="nav-link osl-tab-fixed active text-center" data-toggle="tab" href="#osl_tabs_1_1" data-tab-id="reqInfo" role="tab">요구사항 정보</a>
-				</li>
-				<li class="nav-item swiper-slide">
-					<a class="nav-link osl-tab-fixed text-center" data-toggle="tab" href="#osl_tabs_1_2" data-tab-id="flowChg" role="tab">작업흐름 변경이력</a>
-				</li>
-				<li class="nav-item swiper-slide">
-					<a class="nav-link osl-tab-fixed text-center" data-toggle="tab" href="#osl_tabs_1_3" data-tab-id="reqHistory" role="tab">요구사항 수정이력</a>
-				</li>
-				<li class="nav-item swiper-slide">
-					<a class="nav-link osl-tab-fixed text-center" data-toggle="tab" href="#osl_tabs_1_4" data-tab-id="prjAddOpt" role="tab">프로젝트 기본 항목</a>
-				</li>
-				<li class="nav-item swiper-slide">
-					<a class="nav-link osl-tab-fixed text-center" data-toggle="tab" href="#osl_tabs_1_5" data-tab-id="proAddOpt" role="tab">프로세스 기본 항목</a>
-				</li>
-				<li class="nav-item swiper-slide">
-					<a class="nav-link osl-tab-fixed text-center" data-toggle="tab" href="#osl_tabs_1_6" data-tab-id="reqAddOpt" role="tab">추가항목 정보</a>
-				</li>
-				<li class="nav-item swiper-slide">
-					<a class="nav-link osl-tab-fixed text-center" data-toggle="tab" href="#osl_tabs_1_7" data-tab-id="reqwork" role="tab">작업 내용</a>
-				</li>
-				<li class="nav-item swiper-slide">
-					<a class="nav-link osl-tab-fixed text-center" data-toggle="tab" href="#osl_tabs_1_8" data-tab-id="svnRevision" role="tab">리비전 정보</a>
-				</li>
-				<li class="nav-item swiper-slide">
-					<a class="nav-link osl-tab-fixed text-center" data-toggle="tab" href="#osl_tabs_1_8" data-tab-id="reqDep" role="tab">배포 정보</a>
-				</li>
-			</ul>
-		</div>
+<div class="row">
+	<div class="osl-tab-icon-group">
 		
-		<button type="button" class="btn btn-outline-brand btn-bold btn-font-sm osl-position-left-btn swiper-button-prev">
-			<i class="fas fa-angle-left"></i>
-		</button>
-		<button type="button" class="btn btn-outline-brand btn-bold btn-font-sm osl-position-right-btn swiper-button-next">
-			<i class="fas fa-angle-right"></i>
-		</button>
+		<ul class="nav nav-pills nav-pills-sm osl-flex-flow--column" role="tablist">
+			<li class="nav-item kt-margin-r-0">
+				<a class="nav-link osl-tab-fixed active" data-toggle="tab" href="#osl_tabs_1_1" data-tab-id="reqInfo" role="tab">
+					<i class="fas fa-info-circle"></i><span>요구사항 정보</span>
+				</a>
+			</li>
+			<li class="nav-item kt-margin-r-0">
+				<a class="nav-link osl-tab-fixed" data-toggle="tab" href="#osl_tabs_1_2" data-tab-id="flowChg" role="tab">
+					<i class="far fa-clone"></i><span>작업흐름 변경이력</span>
+				</a>
+			</li>
+			<li class="nav-item kt-margin-r-0">
+				<a class="nav-link osl-tab-fixed" data-toggle="tab" href="#osl_tabs_1_3" data-tab-id="reqHistory" role="tab">
+					<i class="fas fa-edit"></i><span>요구사항 수정이력</span>
+				</a>
+			</li>
+			<li class="nav-item kt-margin-r-0">
+				<a class="nav-link osl-tab-fixed" data-toggle="tab" href="#osl_tabs_1_4" data-tab-id="prjAddOpt" role="tab">
+					<i class="fas fa-folder"></i><span>프로젝트 기본 항목</span>
+				</a>
+			</li>
+			<li class="nav-item kt-margin-r-0">
+				<a class="nav-link osl-tab-fixed" data-toggle="tab" href="#osl_tabs_1_5" data-tab-id="proAddOpt" role="tab">
+					<i class="fas fa-project-diagram"></i><span>프로세스 기본 항목</span>
+				</a>
+			</li>
+			<li class="nav-item kt-margin-r-0">
+				<a class="nav-link osl-tab-fixed" data-toggle="tab" href="#osl_tabs_1_6" data-tab-id="reqAddOpt" role="tab">
+					<i class="far fa-plus-square"></i><span>추가항목 정보</span>
+				</a>
+			</li>
+			<li class="nav-item kt-margin-r-0">
+				<a class="nav-link osl-tab-fixed" data-toggle="tab" href="#osl_tabs_1_7" data-tab-id="reqwork" role="tab">
+					<i class="fas fa-columns"></i><span>작업 내용</span>
+				</a>
+			</li>
+			<li class="nav-item kt-margin-r-0">
+				<a class="nav-link osl-tab-fixed" data-toggle="tab" href="#osl_tabs_1_8" data-tab-id="svnRevision" role="tab">
+					<i class="fab fa-usb"></i><span>리비전 정보</span>
+				</a>
+			</li>
+			<li class="nav-item kt-margin-r-0">
+				<a class="nav-link osl-tab-fixed" data-toggle="tab" href="#osl_tabs_1_8" data-tab-id="reqDep" role="tab">
+					<i class="fas fa-share-alt-square"></i><span>배포 정보</span>
+				</a>
+			</li>
+		</ul>
 		
 	</div>
-		
-	<!-- 
-		**참고사항** 
-		하나의 tab-content에 여러개의 portlet이 들어갈 경우에는
-		osl-tab-content-8 osl-min-h-px--550,osl-tab-content-4에 있는 kt-padding-20, kt-bg-light 제거하시고 사용하시면 됩니다.
-		또한 위의 경우 여러개 portlet이 들어갈 때 마지막 portlet은 반드시 kt-padding-b-0을 적어 주셔야합니다.
-		osl-tab-content-8 osl-min-h-px--550,osl-tab-content-4는 기본적으로 kt-padding-20, kt-bg-light를 무조건 가지고 있습니다.
-		여백과 배경색이 없는 예시) osl_tab_1_1 내부의 osl-tab-content-8 osl-min-h-px--550
-	 -->
-	<div class="kt-portlet__body kt-padding-t-0 kt-padding-l-30 kt-padding-r-30 kt-padding-b-30">
-		<div class="tab-content">
+
+	<div class="osl-tab-content-group kt-bg-light kt-padding-10">
+		<div class="tab-content osl-tab-content kt-scroll" id="osl-tab-content__scroll">
 			
 			<div class="tab-pane active" id="osl_tabs_1_1" data-tab-content="reqInfo" role="tabpanel">
 				<form class="kt-form" id="reqInfo" autocomplete="off">
-					<div class="row">
+					<div class="row kt-margin-0">
 						<div class="osl-tab-content-8 osl-min-h-px--550">
 							<div class="kt-portlet kt-portlet--collapsed" id="req4102RequestUsrInfo">
 								<div class="kt-portlet__head">
@@ -200,7 +201,7 @@
 			</div>
 			
 			
-			<div class="row osl-tab-content--full kt-hide">
+			<div class="row osl-tab-content--full kt-margin-0 kt-hide">
 				<div class="osl-tab-content-4 osl-min-h-px--550 kt-bg-light osl-content-right-margin kt-padding-20 kt-padding-r-70">
 					<div class="float-left w-100">
 						<form class="kt-form" id="reqSideHistory" autocomplete="off">
@@ -254,7 +255,7 @@
 			
 			<div class="tab-pane" id="osl_tabs_1_2" data-tab-content="flowChg" role="tabpanel">
 				<form class="kt-form" id="flowChg" autocomplete="off">
-					<div class="row osl-tab-content--full">
+					<div class="row osl-tab-content--full kt-margin-0">
 						<div class="osl-tab-content-8 osl-min-h-px--550 kt-bg-light kt-padding-20"></div>
 					</div>
 				</form>
@@ -263,7 +264,7 @@
 			
 			<div class="tab-pane" id="osl_tabs_1_3" data-tab-content="reqHistory" role="tabpanel">
 				<form class="kt-form" id="reqHistory" autocomplete="off">
-					<div class="row osl-tab-content--full">
+					<div class="row osl-tab-content--full kt-margin-0">
 						<div class="osl-tab-content-8 osl-min-h-px--550 kt-bg-light kt-padding-20"></div>
 					</div>
 				</form>
@@ -272,7 +273,7 @@
 			
 			<div class="tab-pane" id="osl_tabs_1_4" data-tab-content="prjAddOpt" role="tabpanel">
 				<form class="kt-form" id="prjAddOpt" autocomplete="off">
-					<div class="row osl-tab-content--full">
+					<div class="row osl-tab-content--full kt-margin-0">
 						<div class="osl-tab-content-8 osl-min-h-px--550 kt-bg-light kt-padding-20"></div>
 					</div>
 				</form>
@@ -281,7 +282,7 @@
 			
 			<div class="tab-pane" id="osl_tabs_1_5" data-tab-content="proAddOpt" role="tabpanel">
 				<form class="kt-form" id="proAddOpt" autocomplete="off">
-					<div class="row osl-tab-content--full">
+					<div class="row osl-tab-content--full kt-margin-0">
 						<div class="osl-tab-content-8 osl-min-h-px--550 kt-bg-light kt-padding-20"></div>
 					</div>
 				</form>
@@ -290,7 +291,7 @@
 			
 			<div class="tab-pane" id="osl_tabs_1_6" data-tab-content="reqAddOpt" role="tabpanel">
 				<form class="kt-form" id="reqAddOpt" autocomplete="off">
-					<div class="row osl-tab-content--full">
+					<div class="row osl-tab-content--full kt-margin-0">
 						<div class="osl-tab-content-8 osl-min-h-px--550 kt-bg-light kt-padding-20"></div>
 					</div>
 				</form>
@@ -299,7 +300,7 @@
 			
 			<div class="tab-pane" id="osl_tabs_1_7" data-tab-content="reqwork" role="tabpanel">
 				<form class="kt-form" id="reqwork" autocomplete="off">
-					<div class="row osl-tab-content--full">
+					<div class="row osl-tab-content--full kt-margin-0">
 						<div class="osl-tab-content-8 osl-min-h-px--550 kt-bg-light kt-padding-20"></div>
 					</div>
 				</form>
@@ -308,7 +309,7 @@
 			
 			<div class="tab-pane" id="osl_tabs_1_8" data-tab-content="svnRevision" role="tabpanel">
 				<form class="kt-form" id="svnRevision" autocomplete="off">
-					<div class="row osl-tab-content--full">
+					<div class="row osl-tab-content--full kt-margin-0">
 						<div class="osl-tab-content-8 osl-min-h-px--550 kt-bg-light kt-padding-20"></div>
 					</div>
 				</form>
@@ -317,7 +318,7 @@
 			
 			<div class="tab-pane" id="osl_tabs_1_9" data-tab-content="reqDep" role="tabpanel">
 				<form class="kt-form" id="reqDep" autocomplete="off">
-					<div class="row osl-tab-content--full">
+					<div class="row osl-tab-content--full kt-margin-0">
 						<div class="osl-tab-content-8 osl-min-h-px--550 kt-bg-light kt-padding-20"></div>
 					</div>
 				</form>
@@ -353,10 +354,10 @@ var OSLCmm6203Popup = function () {
 	
 	var reqFileViewObj;
 	var reqFileViewObjTab;
-	
+	var heightSizeTarget;
     
     var documentSetting = function () {
-    	
+    	fnKtScrollInit('#osl-tab-content__scroll','550')
 		
     	new KTPortlet('req4102RequestUsrInfo', $.osl.lang("portlet"));
     	new KTPortlet('req4102ReqGrpInfo', $.osl.lang("portlet"));
@@ -367,41 +368,33 @@ var OSLCmm6203Popup = function () {
     	settingReqTwoTap();
     	
     	
-		$('.modal-body').scroll(function() {
-		    
-		    var scroll = $('.modal-body').scrollTop();
-		    
-		    if (scroll >= 10) {
-		        
-		        $('.osl-swiper-container').css({
-		            backgroundColor: '#eeeef4',
-		        	boxShadow: '0 1px 16px rgb(64 63 63 / 15%)'
-		        });
-		        
-		    } else {
-		        
-		        $('.osl-swiper-container').css({
-		            backgroundColor: 'transparent',
-		        	boxShadow: 'none'
-		        });
-		    }
-		});
-    	
-    	
     	$('.osl-tab-content__folding-btn').click(function(){
     		
     		var target = $(this).parents('.osl-tab-content--full');
     		
     		if(target.hasClass('folding-div')){
+    			$('#osl-tab-content__scroll').scrollTop(0);
     			
     			target.removeClass('folding-div');
     			
     			$('.osl-tab-folding-hide').addClass('kt-hide');
+    			
+    			heightSizeTarget = $(this).parents('.osl-tab-content-4').outerHeight();
+    			
+    			$('.osl-tab-content-8').each(function(idx, map){
+					$(map).css('height',heightSizeTarget);
+    			});
     		}else{
     			
     			target.addClass('folding-div');
     			
     			$('.osl-tab-folding-hide').removeClass('kt-hide');
+    			
+    			heightSizeTarget = $(this).parents('.osl-tab-content-4').outerHeight();
+    			
+    			$('.osl-tab-content-8').each(function(idx, map){
+					$(map).css('height',heightSizeTarget);
+    			});
     		}
     	});
 
@@ -417,6 +410,7 @@ var OSLCmm6203Popup = function () {
     	
     	
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			$('#osl-tab-content__scroll').scrollTop(0);
 			
 			var tabTarget = e.currentTarget;
 			
@@ -569,7 +563,7 @@ var OSLCmm6203Popup = function () {
  				var reqChgStr = '';
  				if(!$.osl.isNull(reqChgList) && reqChgList.length > 0){
  					$.each(reqChgList, function(idx, map){
- 						var processNextLabel = '<div class="osl-flowchart__label"><i class="fa fa-arrow-right"></i></div>';
+ 						var processNextLabel = '<div class="osl-flowchart__label osl-margin--0-auto"><i class="fa fa-arrow-down"></i></div>';
  						
  						
  						if((idx+1) == reqChgList.length){
@@ -599,7 +593,7 @@ var OSLCmm6203Popup = function () {
 		                chgUsrEmail = map.chgUsrEmail;
 		                
  						reqChgStr += 
- 							'<div class="osl-flowchart__operator">'
+ 							'<div class="osl-flowchart__operator--reqdetail">'
 	 							+'<div class="flowchart-operator-process-title">'
 	 								+'<div class="flowchart-operator-title__lebel badge badge-info d-inline-block text-truncate">'+processNm+'</div>'
 	 							+'</div>'
@@ -607,19 +601,21 @@ var OSLCmm6203Popup = function () {
 	 								+'<div class="flowchart-operator-title__lebel d-inline-block text-truncate">'+flowNm+'</div>'
 	 							+'</div>'
 	 							+'<div class="flowchart-operator-inputs-outputs">'
-	 								+'<div class="kt-user-card-v2 btn" data-usr-id="'+ chgUsrId +'">' 
+	 								+'<div class="kt-user-card-v2 btn w-100" data-usr-id="'+ chgUsrId +'">' 
 		 								+'<div class="kt-user-card-v2__pic kt-media kt-media--sm kt-media--circle">'
 		 									+'<img src="'+$.osl.user.usrImgUrlVal(chgUsrImgId)+'" onerror="this.src=\'/media/users/default.jpg\'"/>'
 		 								+'</div>'
 		 								+'<div class="kt-user-card-v2__details kt-align-left">'
-		 									+'<span class="kt-user-card-v2__name text-truncate">'+chgUsrNm+'</span>'
+		 									+'<span class="kt-user-card-v2__name text-truncate osl-max-w-px-200">'+chgUsrNm+'</span>'
 		 									+'<span class="kt-user-card-v2__email kt-margin-l-10 osl-line-height-rem-1_5">'+chgUsrEmail+'</span>'
 		 								+'</div>'
 		 							+'</div>'
 		 							+'<div class="flowchart-operator-chg__dtm"><i class="fa fa-clock kt-margin-r-5"></i>'+chgDtm+'</div>'
 	 							+'</div>'
-	 							+processNextLabel
-	 						+'</div>';
+	 						+'</div>'
+	 						+'<div class="w-100 kt-margin-t-15 kt-margin-b-15 d-flex">'
+ 								+processNextLabel
+ 							+'</div>';
  					});
  				}
  				
@@ -758,6 +754,20 @@ var OSLCmm6203Popup = function () {
 		});
 		
 		ajaxObj.send();
+	};
+	
+	
+	var fnKtScrollInit = function(targetName, targetHeight) {
+		KTUtil.scrollInit($(targetName)[0], {
+	   		
+	        disableForMobile: true, 
+	        
+	        resetHeightOnDestroy: true, 
+	        
+	        handleWindowResize: true, 
+	        
+	        height: targetHeight
+	    });
 	};
 	
     return {

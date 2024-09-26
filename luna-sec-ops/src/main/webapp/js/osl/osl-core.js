@@ -151,7 +151,10 @@
 					shortcut.push("Alt");
 				}
 				
-				shortcut.push(event.key.toUpperCase());
+				if(!$.osl.isNull(event.key.toUpperCase())){
+					
+					shortcut.push(event.key.toUpperCase());
+				}
 				
 				shortcut = shortcut.join(" + ");
 				
@@ -189,7 +192,7 @@
 						closeConfirm: false,
 						modalSize: "lg",
 					};
-					$.osl.layerPopupOpen("/usr/usr1000/usr1100/selectUsr1003View.do",data,options);
+					$.osl.layerPopupOpen("/usr/usr1000/usr1000/selectUsr1003View.do",data,options);
 					break;
 					
 				
@@ -788,7 +791,9 @@
 				            	
 				            	"init": $.noop,
 				            	
-								"onclick": $.noop
+								"onclick": $.noop,
+								
+								"onDblClick": $.noop
 							}
 				        };
 					
@@ -873,6 +878,12 @@
 			            config.callback.onclick(treeObj, selNode);
 			        }).bind('deselect_node.jstree', function(event, data){
 			        	treeObj.jstree().selNode = null;
+			        }).bind('dblclick.jstree', function(event){
+			        	var selNodeId = event.target.id;
+			        	var selNode = treeObj.jstree().get_node(selNodeId);
+			        	
+			        	
+			            config.callback.onDblClick(treeObj, selNode);
 			        }).bind('search.jstree', function(nodes, str, res){
 			        	
 			        	if(str.nodes.length == 0){
@@ -916,7 +927,7 @@
 									+'</span>'
 								+'</div>'
 								+'<div class="input-group-append">'
-									+'<button class="btn '+btnStyleStr+' osl-tree-search__button" type="button" data-tree-id="'+targetId+'">'
+									+'<button type="button" class="btn '+btnStyleStr+' osl-tree-search__button" data-tree-id="'+targetId+'">'
 										+'<i class="fa fa-search"></i><span class=""><span>'+$.osl.lang("tree.search.title")+'</span></span>'
 									'</button>'
 								+'</div>'
@@ -958,6 +969,7 @@
 									
 									thisObj.children("i").addClass("la la-search");
 								},300);
+								return false;
 							}
 						});
 						
@@ -1822,6 +1834,11 @@
         						var ntfStr = '';
         						var cardMsg = '';
         						$.each(list, function(idx, map){
+        	 						
+        	 						var paramDatetime = new Date(map.sendDtm);
+        			                var agoTimeStr = $.osl.datetimeAgo(paramDatetime, {fullTime: "d", returnFormat: "yyyy-MM-dd HH:mm:ss"});
+        			                var chgDtm = agoTimeStr.agoString;
+        			                
         							
         							var cardUi = map.armSendTypeNm;
         							
@@ -1857,6 +1874,7 @@
 										+'		<div class="kt-notification-v2__item-desc">'
 										+'			'+$.osl.escapeHtml(map.armContent)+''
 										+'		</div>'
+										+'		<div class="flowchart-operator-chg__dtm kt-notification-v2__item-desc"><i class="fa fa-clock kt-margin-r-5"></i>'+chgDtm+'</div>'
 										+'	</div>'
 										+'</a>';
 										
@@ -2014,49 +2032,106 @@
         							
         							if(map.fvrUseCd == '01'){
     									fvrUse = 'osl-favorites--active';
-    								}        							
+    								}       
+        							
+        							var usrDetailEvt = "";
+        							if($.osl.isNull(map.reqUsrId)){
+        								usrDetailEvt = "$.osl.alert('시스템에 등록되지 않은 사용자 입니다.');"
+        							}else{
+        								usrDetailEvt = '$.osl.user.usrInfoPopup(\''+map.reqUsrId+'\');'
+        							}
+        							
+        									
         							
         							prjGrpStr +=
-        								 '	<div class="kt-portlet osl-charge-requirements '+cardUi+'" data-prj-grp-id="'+map.prjGrpId+'" data-prj-id="'+map.prjId+'" data-req-id="'+map.reqId+'">'
-										+'		<div class="kt-portlet__head ">'
-										+'			<div class="kt-portlet__head-label">'
-										+'				<h3 class="kt-portlet__head-title osl-charge-requirements__head-title" data-toggle="kt-tooltip" data-skin="brand" title="" data-original-title="['+$.osl.escapeHtml(map.reqOrd)+'] '+$.osl.escapeHtml(map.reqNm)+'">['+$.osl.escapeHtml(map.reqOrd)+'] '+$.osl.escapeHtml(map.reqNm)+'</h3>'
-										+'			</div>'
-										+'			<div class="kt-portlet__head-toolbar">'
-										+'				<i class="kt-nav__link-icon flaticon-star osl-charge-flaticon-star '+fvrUse+'" data-fvr-data1="'+$.osl.escapeHtml(map.reqId)+'" data-fvr-type="05" data-fvr-id="'+map.fvrId+'" onclick="$.osl.favoritesEdit(event,this);$.osl.datatable.list.chargeReqTable.targetDt.reload();"></i>'
-										+'			</div>'
-										+'		</div>'
-										+'		<div class="kt-portlet__body osl-padding-b-7">'
-										+'			<div class="kt-portlet__content osl-charge-requirements__body"  data-toggle="kt-tooltip" data-skin="brand" title="" data-original-title="'+$.osl.escapeHtml(map.reqDesc)+'">'
-										+'				'+$.osl.escapeHtml(map.reqDesc)+''
-										+'			</div>'
-										+'			<div class="kt-align-right osl-margin-t-1rm">'
-										+'				<i class="fa fa-key"></i>'
-						        		+'				<i class="fa fa-file-signature"></i>'
-						        		+'				<i class="far fa-stop-circle"></i>'
-						        		+'				<i class="fa fa-sign-out-alt"></i>'
-						        		+'				<i class="fa fa-code-branch"></i>'
-						        		+'				<i class="fa fa-code"></i>'
-						        		+'				<i class="fa fa-puzzle-piece"></i>'
-						        		+'				<i class="fa fa-user-shield"></i>'
-										+'			</div>'
-										+'		</div>'
-										+'		<div class="kt-portlet__foot kt-portlet__foot--sm kt-align-right" style="display: flex;justify-content: space-between;">'
-										+'			<div class="osl-charge-requirements__footer-label" style="display: flex;align-items: center;-webkit-box-align: center;" onclick="$.osl.user.usrInfoPopup(\''+map.reqUsrId+'\');">'
-										+'				'+$.osl.user.usrImgSet(map.reqUsrImgId, usrData)+''
-										+'			</div>'
-										+'			<div class="osl-charge-requirements__footer-toolbar" style="display: flex;align-content: flex-end;">'
-										+'				<a href="#" class="btn btn-bold btn-upper btn-sm btn-font-light btn-outline-hover-light">업무화면</a>'
-										+'				<a href="#" class="btn btn-bold btn-upper btn-sm btn-font-light btn-outline-hover-light">상세보기</a>'
-										+'			</div>'
-										+'		</div>'
-										+'	</div>';
+	       								 '	<div class="kt-portlet osl-charge-requirements '+cardUi+'" data-prj-grp-id="'+map.prjGrpId+'" data-prj-id="'+map.prjId+'" data-req-id="'+map.reqId+'">'
+											+'		<div class="kt-portlet__head ">'
+											+'			<div class="kt-portlet__head-label">'
+											+'				<h3 class="kt-portlet__head-title osl-charge-requirements__head-title" data-toggle="kt-tooltip" data-skin="brand" title="" data-original-title="['+$.osl.escapeHtml(map.reqOrd)+'] '+$.osl.escapeHtml(map.reqNm)+'">['+$.osl.escapeHtml(map.reqOrd)+'] '+$.osl.escapeHtml(map.reqNm)+'</h3>'
+											+'			</div>'
+											+'			<div class="kt-portlet__head-toolbar">'
+											+'				<i class="kt-nav__link-icon flaticon-star osl-charge-flaticon-star '+fvrUse+'" data-fvr-data1="'+$.osl.escapeHtml(map.reqId)+'" data-fvr-type="05" data-fvr-id="'+map.fvrId+'" onclick="$.osl.favoritesEdit(event,this);$.osl.datatable.list.chargeReqTable.targetDt.reload();"></i>'
+											+'			</div>'
+											+'		</div>'
+											+'		<div class="kt-portlet__body osl-padding-b-7">'
+											+'			<div class="kt-portlet__content osl-charge-requirements__body"  data-toggle="kt-tooltip" data-skin="brand" title="" data-original-title="'+$.osl.escapeHtml(map.reqDesc)+'">'
+											+'				'+$.osl.escapeHtml(map.reqDesc)+''
+											+'			</div>'
+											+'			<div class="kt-align-right osl-margin-t-1rm">'
+											+'				<i class="fa fa-key"></i>'
+							        		+'				<i class="fa fa-file-signature"></i>'
+							        		+'				<i class="far fa-stop-circle"></i>'
+							        		+'				<i class="fa fa-sign-out-alt"></i>'
+							        		+'				<i class="fa fa-code-branch"></i>'
+							        		+'				<i class="fa fa-code"></i>'
+							        		+'				<i class="fa fa-puzzle-piece"></i>'
+							        		+'				<i class="fa fa-user-shield"></i>'
+											+'			</div>'
+											+'		</div>'
+											+'		<div class="kt-portlet__foot kt-portlet__foot--sm kt-align-right" style="display: flex;justify-content: space-between;">'
+											+'			<div class="osl-charge-requirements__footer-label" style="display: flex;align-items: center;-webkit-box-align: center;" onclick="'+usrDetailEvt+'">'
+											+'				'+$.osl.user.usrImgSet(map.reqUsrImgId, usrData)+''
+											+'			</div>'
+											+'			<div class="osl-charge-requirements__footer-toolbar" style="display: flex;align-content: flex-end;">'
+											+'				<a href="#" class="btn btn-bold btn-upper btn-sm btn-font-light btn-outline-hover-light chargeReqProcessBtn  kt-hide" data-prj-id="'+map.prjId+'" data-req-pro-type="'+map.reqProType+'" data-req-nm="'+map.reqNm+'" data-req-id="'+map.reqId+'">업무화면</a>'
+											+'				<a href="#" class="btn btn-bold btn-upper btn-sm btn-font-light btn-outline-hover-light chargeReqDetailBtn" data-prj-id="'+map.prjId+'" data-req-id="'+map.reqId+'">상세보기</a>'
+											+'			</div>'
+											+'		</div>'
+											+'	</div>';
+	       						});
+	       						
+	       						
+	       						
+	       						$("#chargeReqCardTable").html(prjGrpStr);
+	       						KTApp.initTooltips();
+	       						
+	       						$(".osl-charge-requirements .chargeReqProcessBtn").each(function(){
+	       							if($(this).data("req-pro-type") == '02'){
+	       								$(this).removeClass("kt-hide");
+	       							}
+	       						})
+	       						
+        						$(".osl-charge-requirements .chargeReqProcessBtn").click(function(){
+        							var reqProType = $(this).data("reqProType");
+        							var reqId = $(this).data("reqId");
+        							var prjId = $(this).data("prjId");
+        							var reqNm = $(this).data("reqNm");
+        							
+        							if(reqProType != "02"){
+        								$.osl.alert("처리중인 요구사항만 업무 처리가 가능합니다.");
+        								return false;
+        							}
+
+        							var data = {
+        									paramPrjId: prjId,
+        									paramReqId: reqId
+        							};
+        							var options = {
+        								modalSize: "fs",
+        								idKey: "reqProcess"+reqId,
+        								modalTitle: "["+reqNm+"] 요구사항 업무 처리",
+        								closeConfirm: false,
+        							};
+        							$.osl.layerPopupOpen('/cmm/cmm6000/cmm6200/selectCmm6201View.do',data,options);
         						});
         						
         						
+        						$(".osl-charge-requirements .chargeReqDetailBtn").click(function(){
+        							var reqId = $(this).data("reqId");
+        							var prjId = $(this).data("prjId");
+        							
+        							var data = {
+        									paramPrjId: prjId,
+        									paramReqId: reqId,
+        								};
+        							var options = {
+        									idKey: "reqDetail"+reqId,
+        									modalTitle: $.osl.lang("req4100.title.detailTitle"),
+        									autoHeight: false,
+        								};
+        							$.osl.layerPopupOpen('/req/req4000/req4100/selectReq4102View.do',data,options);
+        						});
         						
-        						$("#chargeReqCardTable").html(prjGrpStr);
-        						KTApp.initTooltips();
         					}
         				}
         			});
@@ -2183,6 +2258,7 @@
 						if($(row).find("[data-datatable-id="+targetId+"][data-datatable-action]").length > 0){
 							var btnRowNum = $(row).data("row");
 							
+							
 							$.each($(row).find("[data-datatable-id="+targetId+"][data-datatable-action]"), function(idx, map){
 								var btnDatatableId = $(map).data("datatable-id");
 								var btnAction = $(map).data("datatable-action");
@@ -2212,6 +2288,35 @@
 							
 							KTApp.initTooltips();
 						}
+					},
+					
+					detail: function(){
+						$(datatables.targetDt.tableBody).on("click", "tr.kt-datatable__row-detail [data-datatable-id="+targetId+"][data-datatable-action]",function(){
+							var row = $(this).parents(".kt-datatable__row-detail").prev();
+							var btnRowNum = row.data("row");
+							
+							var btnDatatableId = $(this).data("datatable-id");
+							var btnAction = $(this).data("datatable-action");
+							
+							
+							if(btnEvt.action.hasOwnProperty(btnAction)){
+								btnEvt.action[btnAction](this, btnDatatableId, "info", btnRowNum, row);
+								this.click();
+							}else{
+								
+								if(targetConfig.actionFn.hasOwnProperty(btnAction)){
+									
+									event.cancelable = true;
+									event.stopPropagation();
+									event.preventDefault();
+									event.returnValue = false;
+
+									var tmp_rowData = datatables.targetDt.dataSet[btnRowNum];
+									
+									targetConfig.actionFn[btnAction](tmp_rowData, btnDatatableId, "info", btnRowNum, this);
+								}
+							}
+						});
 					},
 					
 					action: {
@@ -2394,15 +2499,47 @@
 									event.preventDefault();
 									event.returnValue = false;
 								}
-								var rowData = datatables.targetDt.dataSet[rowNum];
+								
+								var rowData;
+								
+								
+								if(type == "list"){
+									
+									var selRecords = datatables.targetDt.getSelectedRecords();
+									
+									
+									if(selRecords.length == 0){
+										$.osl.alert($.osl.lang("datatable.action.dblClick.nonSelect"));
+										return true;
+									}
+									
+									else if(selRecords.length > 1){
+										$.osl.alert($.osl.lang("datatable.action.update.manySelect",selRecords.length));
+										return true;
+									}
+									else{
+										var rowIdx = datatables.targetDt.getSelectedRecords().data("row");
+										
+										rowData = datatables.targetDt.dataSet[rowIdx];
+									}
+								}
+								
+								else if(type == "info"){
+									rowData = datatables.targetDt.dataSet[rowNum];
+								}
 								
 								
 								datatables.config.actionFn["dblClick"](rowData, datatableId, type, rowNum, elem );
 							});
 
 							
+							if(!$.osl.isNull($(row).data("long-press-delay"))){
+								$(row).data("long-press-delay", 500);
+							}
+							
+							
 							$(row).off("dblclick");
-							$(row).on('dblclick', function (event) {
+							$(row).on('dblclick long-press', function (event) {
 								if(bubleFlag != false){
 									
 									event.cancelable = true;
@@ -2410,6 +2547,7 @@
 									event.preventDefault();
 									event.returnValue = false;
 								}
+								
 								var rowData = datatables.targetDt.dataSet[rowNum];
 								
 								
@@ -2761,7 +2899,8 @@
 						},
 						layout: {
 							scroll: false,
-							footer: false
+							footer: false,
+							customScrollbar: true
 						},
 						translate:{
 							records:{
@@ -2789,8 +2928,12 @@
 							beforeTemplate: function (row, data, index){
 								
 							},
-							clickCheckbox: false,
-							minHeight: null
+							afterTemplate: function(row, data, index){
+								
+							},
+							clickCheckbox: true,
+							minHeight: null,
+							autoHide: true
 						},
 						sortable: true,
 						pagination: true,
@@ -2799,7 +2942,7 @@
 						searchColumns: [],
 						cardUiTarget: null,
 						actionBtn:{
-							"autoHide": false,
+							"autoHide": true,
 							"title": "Actions",
 							"width": false,
 							"lastPush": true,
@@ -2881,46 +3024,62 @@
 						
 					
 					targetConfig = $.extend(true, targetConfig, config, config);
-
+					
 					
 					targetConfig.rows["afterTemplate"] = function(row, data, index){
 						
-						if(config.hasOwnProperty("rows")){
+						row.click(function(){
+							var targetRow = $(this).closest("tr");
+							var targetElem = targetRow.find("label.kt-checkbox").children("input[type=checkbox]");
 							
-							if(config.rows.hasOwnProperty("minHeight")){
-								var minHeight = config.rows.minHeight;
+							if($(event.target).parents(".kt-datatable__cell--check").length > 0){
+								return true;
+							}
+							
+							else if($(event.target).hasClass("kt-datatable__cell--check")){
+								datatables.targetDt.setActive(targetElem);
+								targetElem.prop("checked", true);
+								return true;
+							}
+							
+							
+							var selNodes = datatables.targetDt.getSelectedRecords();
+							datatables.targetDt.setInactive(selNodes);
+							
+							$("#"+targetId +" .osl-datatable__row--selected").removeClass("osl-datatable__row--selected");
+							
+							
+							targetRow.addClass("osl-datatable__row--selected");
+							
+							
+							if(targetConfig.hasOwnProperty("rows") && targetConfig.rows.hasOwnProperty("clickCheckbox")){
+								
+								if(targetConfig.rows.clickCheckbox == true){
+
+									
+									datatables.targetDt.setActive(targetElem);
+									
+									selNodes.find("label.kt-checkbox").children("input[type=checkbox]").prop("checked", false);
+									targetElem.prop("checked", true);
+								}
+							}
+						});
+						
+						
+						if(targetConfig.hasOwnProperty("rows")){
+							
+							if(targetConfig.rows.hasOwnProperty("minHeight")){
+								var minHeight = targetConfig.rows.minHeight;
 								
 								
 								if(!$.osl.isNull(minHeight) && $.isNumeric(minHeight)){
 									$(row).css({"min-height": parseInt(minHeight)+"px"});
 								}
 							}
-							if(config.rows.hasOwnProperty("clickCheckbox")){
-								
-								if(config.rows.clickCheckbox == true){
-									
-									row.click(function(){
-										var targetRow = $(this).closest("tr");
-										var targetElem = targetRow.find("label.kt-checkbox").children("input[type=checkbox]");
-										
-										if(targetElem.is(":checked") == true){
-											targetElem.prop("checked", false);
-											datatables.targetDt.setInactive(targetElem);
-											
-											targetRow.removeClass("osl-datatable__row--selected");
-											targetRow.addClass("kt-datatable__row--even");
-										}else{
-											targetElem.prop("checked", true);
-											datatables.targetDt.setActive(targetElem);
-										}
-										
-									});
-								}
-							}
 						}
 						
 						
-						if(config.hasOwnProperty("rows") && config.rows.hasOwnProperty("afterTemplate")){
+						if(config.hasOwnProperty("rows") && config.rows.hasOwnProperty("afterTemplate")) {
 							config.rows.afterTemplate(row, data, index);
 						}
 						btnEvt["info"](row);
@@ -3231,6 +3390,9 @@
 					
 					$(ktDatatableTarget).on("kt-datatable--on-init",function(evt,config){
 						targetConfig.callback.initComplete(evt.target, config, datatableInfo);
+
+						
+						btnEvt["detail"]();
 						
 						
 						if(!$.osl.isNull(targetConfig.cardUiTarget)){
@@ -3321,39 +3483,63 @@
 					
 					
 					$(ktDatatableTarget).on("kt-datatable--on-layout-updated",function(evt,config){
+						var targetFieldStr = '';
+						var targetFieldFn = {};
+						
 						
 						$.each(targetConfig.columns, function(idx, map){
 							
 							if(map.hasOwnProperty("onclick")){
-								var targetObj = $("#"+targetId+" td.kt-datatable__cell[data-field="+map.field+"]");
 								
-								
-								targetObj.off("click");
-								targetObj.click(function(event){
-									
-									if(typeof map.onclick == "function"){
-										
-										event.cancelable = true;
-										event.stopPropagation();
-										event.preventDefault();
-										event.returnValue = false;
-										
-										
-										var rowNum = $(this).parent("tr").data("row");
-										var rowData = null;
-										try{
-											rowData = datatableInfo.getDataSet()[rowNum];
-										}catch(e){
-											
-											console.log(e);
-										}
-										
-										
-										map.onclick(rowData, event);
+								if(typeof map.onclick == "function"){
+									if(!$.osl.isNull(targetFieldStr)){
+										targetFieldStr += ',';
 									}
-								});
+									targetFieldStr += "td.kt-datatable__cell[data-field="+map.field+"] ";
+									targetFieldFn[map.field] = map.onclick;
+								}
 							}
 						});
+						var targetObj = $("#"+targetId);
+						
+						if(!$.osl.isNull(targetFieldStr)){
+							
+							targetObj.off("click",targetFieldStr);
+							targetObj.on("click",targetFieldStr, function(event){
+								
+								event.cancelable = true;
+								event.stopPropagation();
+								event.preventDefault();
+								event.returnValue = false;
+								
+								
+								var fieldId = $(this).data("field");
+								
+								
+								var rowNum = $(this).parent("tr").data("row");
+								
+								
+								var detailElem = $(this).parents(".kt-datatable__row-detail");
+								if(detailElem.length > 0){
+									rowNum = $(this).parents(".kt-datatable__row-detail").prev(".kt-datatable__row").data("row");
+								}
+								
+								var rowData = null;
+								try{
+									rowData = datatableInfo.getDataSet()[rowNum];
+								}catch(e){
+									
+									console.log(e);
+								}
+								
+								
+								if(targetFieldFn.hasOwnProperty(fieldId)){
+									targetFieldFn[fieldId](rowData, event);
+								}
+								
+							});
+						}
+						
 						
 						if(!$.osl.isNull(targetConfig.cardUiTarget)){
 							var targetElem = targetConfig.cardUiTarget.find("input[type=checkbox]:checked");
@@ -3445,7 +3631,7 @@
 					var maxYear = moment().subtract(-10, 'year').format('YYYY');
 					
 					var defaultConfig = {
-							parentEl: 'body',
+							parentEl: $(targetObj).parent(),
 				            buttonClasses: 'btn btn-sm',
 				            applyClass: "btn-primary",
 				            cancelClass: "btn-secondary",
@@ -3774,6 +3960,44 @@
 			document.hideMoveForm.authGrpId.value = authGrpId;
 			document.hideMoveForm.action= "/cmm/cmm9000/cmm9000/selectCmm9000PageChgView.do";
 			document.hideMoveForm.submit();
+		},
+		
+		util:{
+			
+			initInputNumbers: function(){
+				this.initInputNumber("input[type=number]");
+			},
+			
+			initInputNumber: function(target){
+				
+				var inputNumberList = $(target);
+				if(!$.osl.isNull(inputNumberList) && inputNumberList.length > 0){
+					$.each(inputNumberList, function(idx, map){
+						
+						var readonly = $(map).attr("readonly");
+						if(!$.osl.isNull(readonly) || (readonly == true || readonly == "readonly")){
+							return true;
+						}
+						
+						var min = $(map).attr("min") || 0;
+						var max = $(map).attr("max") || 9999999;
+						var step = $(map).attr("step") || 1;
+						var boostat = $(map).attr("boostat") || 5;
+						var maxboostedstep = $(map).attr("maxboostedstep") || 10;
+						
+						
+				    	$(map).TouchSpin({
+				            buttondown_class: 'btn btn-secondary',
+				            buttonup_class: 'btn btn-secondary',
+				            min: parseInt(min),
+				            max: parseInt(max),
+				            step: step,
+				            boostat: boostat,
+				            maxboostedstep: maxboostedstep,
+				        });
+					});
+				}
+			}
 		}
 	};
 	
@@ -4245,6 +4469,11 @@
 					if(ruleVal == "required"){
 						ruleVal = true;
 					}
+					
+					if(messageId == "min" || messageId == "max"){
+						ruleVal = parseInt(ruleVal);
+					}
+					
 					
 					if(messageId == "regexstr"){
 						
